@@ -1,0 +1,100 @@
+/* 기본 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* 검색 결과 컨테이너 */
+.results-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+/* 검색 결과 제목 */
+.results-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 검색 결과 리스트 */
+.results-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* 검색 결과 항목 */
+.result-item {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 300px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.result-item:hover {
+    transform: translateY(-5px);
+}
+
+/* 카테고리별 스타일 */
+.outer { background-color: #d9edf7; }
+.top { background-color: #f9ebcc; }
+.dress { background-color: #e6e6fa; }
+.bottom { background-color: #d9f2d9; }
+.shoes { background-color: #ffe4b5; }
+.other { background-color: #d6d6d6; }
+
+/* 이미지 스타일 */
+.result-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 결과 정보 */
+.result-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.result-info h3 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.result-info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* 상세보기 링크 */
+.details-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.details-link:hover {
+    background-color: #0056b3;
+}
+
+/* 검색 결과 없음 메시지 */
+.no-results {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    padding: 20px;
+}

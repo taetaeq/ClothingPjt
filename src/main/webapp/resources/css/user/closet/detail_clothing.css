@@ -1,0 +1,80 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.detail-table th, .detail-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #e0e0e0;
+}
+
+.detail-table th {
+    background-color: #f2f2f2;
+    width: 150px;
+}
+
+.clothing-image {
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #e60000;
+}
+
+.message {
+    font-size: 16px;
+    color: green;
+    margin-top: 20px;
+}
+.delete-btn, .view-list-btn {
+    background-color: #f44336; /* 삭제 버튼과 같은 빨간색 */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover, .view-list-btn:hover {
+    background-color: #d32f2f; /* 호버 시 더 어두운 빨간색 */
+}
+
+.view-list-btn {
+    background-color: #4CAF50; /* 색상만 다른 초록색으로 설정 */
+}
+
+.view-list-btn:hover {
+    background-color: #45a049; /* 호버 시 초록색도 어두운 초록으로 변경 */
+}
+
