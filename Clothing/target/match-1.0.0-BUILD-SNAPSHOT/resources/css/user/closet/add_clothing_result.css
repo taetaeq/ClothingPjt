@@ -1,0 +1,78 @@
+/* 기본 스타일 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 페이지 전체의 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* 섹션 스타일 */
+section {
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fff;
+}
+
+/* 메인 컨테이너 스타일 */
+#section_wrap {
+    text-align: center;
+    background-color: #f9f9f9;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+}
+
+.word h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f44336; /* 붉은 색으로 설정 */
+    margin-bottom: 20px;
+}
+
+/* "나의 옷장" 링크 스타일 */
+.others a {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.others a:hover {
+    background-color: #45a049;
+}
+
+.others a:active {
+    background-color: #388e3c;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+    #section_wrap {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .word h3 {
+        font-size: 20px;
+    }
+
+    .others a {
+        font-size: 14px;
+        padding: 10px 25px;
+    }
+}

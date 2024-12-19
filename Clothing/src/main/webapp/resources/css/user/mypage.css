@@ -1,0 +1,72 @@
+nav {
+	margin: 15px 0;
+	}
+
+#nav_wrap {
+	width: 1200px;
+	margin: 0 auto;
+	}
+
+#nav_wrap .menu {
+	border-bottom: 1px solid #d9d9d9;
+	}
+#nav_wrap .menu ul {
+	overflow: hidden;
+	}
+
+#nav_wrap .menu ul li {
+	float: right;
+	margin-right: 5px;
+	margin-left: 30px;
+	}
+	
+/* .mypage-content 스타일 */
+.mypage-content {
+    background-color: #f9f9f9;  /* 배경색, 부드러운 회색톤 */
+    padding: 20px;  /* 내부 여백 */
+    border-radius: 8px;  /* 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 가벼운 그림자 */
+    margin-top: 20px;  /* 상단 마진 */
+    max-width: 900px;  /* 콘텐츠 너비 제한 */
+    margin-left: auto;  /* 좌측 정렬 */
+    margin-right: auto;  /* 우측 정렬 */
+}
+
+.mypage-content h3 {
+    font-size: 24px;  /* 제목 폰트 크기 */
+    color: #333;  /* 제목 색상 */
+    font-weight: bold;  /* 제목 두껍게 */
+    margin-bottom: 10px;  /* 제목과 내용 사이 여백 */
+}
+
+.mypage-content p {
+    font-size: 16px;  /* 본문 폰트 크기 */
+    color: #555;  /* 본문 색상 */
+    line-height: 1.6;  /* 본문 줄 간격 */
+    margin-bottom: 20px;  /* 본문과 다른 콘텐츠 사이 여백 */
+}
+
+.mypage-content a {
+    font-size: 16px;
+    color: #007bff;  /* 링크 색상 */
+    text-decoration: none;  /* 링크 밑줄 제거 */
+}
+
+.mypage-content a:hover {
+    text-decoration: underline;  /* 마우스 오버 시 밑줄 추가 */
+}
+
+/* 반응형 디자인을 위한 스타일 */
+@media (max-width: 768px) {
+    .mypage-content {
+        padding: 15px;  /* 작은 화면에서 여백 줄이기 */
+    }
+
+    .mypage-content h3 {
+        font-size: 20px;  /* 작은 화면에서 제목 크기 줄이기 */
+    }
+
+    .mypage-content p {
+        font-size: 14px;  /* 작은 화면에서 본문 크기 줄이기 */
+    }
+}

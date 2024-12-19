@@ -1,0 +1,82 @@
+/* 공통 설정 */
+nav {
+    margin: 15px 0;
+    border-bottom: 1px solid #d9d9d9; /* 전체 하단 선 */
+}
+
+#nav_wrap {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* 메뉴와 검색창을 양쪽 정렬 */
+    align-items: center; /* 수직 정렬 */
+}
+
+#nav_wrap .menu ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#nav_wrap .menu ul li {
+    margin-left: 15px;
+}
+
+#nav_wrap .menu ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#nav_wrap .menu ul li a:hover {
+    text-decoration: underline;
+    background-color: #f0f0f0;
+}
+
+/* 검색 영역 */
+#nav_wrap .search {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    padding: 0; /* 여백 제거 */
+}
+
+#nav_wrap .search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 각 요소 간 간격 */
+}
+
+#nav_wrap .search select,
+#nav_wrap .search input[type='text'],
+#nav_wrap .search input[type='submit'] {
+    height: 40px; /* 모든 요소의 높이 동일 */
+    padding: 5px;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+#nav_wrap .search input[type='text'] {
+    width: 250px;
+    transition: border-color 0.3s ease;
+}
+
+#nav_wrap .search input[type='text']:focus {
+    border-color: #333;
+}
+
+#nav_wrap .search input[type='submit'] {
+    padding: 0 15px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#nav_wrap .search input[type='submit']:hover {
+    background-color: #555;
+}
