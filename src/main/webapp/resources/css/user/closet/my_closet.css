@@ -1,0 +1,89 @@
+/* my_closet.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.mypage-content {
+    margin: 20px;
+}
+
+h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 옷장 버튼 스타일 */
+.closet-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.closet-handle {
+    width: 100%;
+    padding: 15px;
+    background-color: #5dbb63;
+    color: white;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.closet-handle:hover {
+    background-color: #4b9e50;
+}
+
+/* 옷장 메뉴 스타일 */
+.closet-content {
+    display: none;
+    padding: 10px;
+    background-color: #e5e5e5;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.closet-content.open {
+    display: block;
+}
+
+.closet-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.closet-content li {
+    padding: 10px 0;
+}
+
+.closet-content li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.closet-content li a:hover {
+    color: #5dbb63;
+}
+/* closet-content가 숨겨져 있을 때의 기본 상태 */
+.closet-content {
+    display: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* closet-content가 열릴 때 display를 block으로 바꿈 */
+.closet-content.open {
+    display: block;
+}
+

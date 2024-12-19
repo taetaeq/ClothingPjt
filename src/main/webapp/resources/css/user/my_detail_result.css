@@ -1,0 +1,73 @@
+/* my_detail_result.css */
+
+/* 전체 레이아웃 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; /* 부드러운 배경색 */
+    color: #333; /* 가독성을 높이는 글자색 */
+}
+
+/* 섹션 컨테이너 */
+#section_wrap {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff; /* 카드 스타일 느낌 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+    border-radius: 10px; /* 부드러운 모서리 */
+    text-align: center;
+}
+
+/* 제목 */
+.word h3 {
+    font-size: 1.8rem;
+    color: #4CAF50; /* 성공 메시지 색상 */
+    margin-bottom: 20px;
+}
+
+.word h3.fail {
+    color: #FF5722; /* 실패 메시지 색상 */
+}
+
+/* 링크 섹션 */
+.others {
+    margin-top: 30px;
+}
+
+.others a {
+    display: inline-block;
+    margin: 10px 15px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #4CAF50; /* 기본 버튼 색상 */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.others a:hover {
+    background-color: #388E3C; /* 호버 시 어두운 색상 */
+}
+
+.others a.fail {
+    background-color: #FF5722; /* 실패 버튼 색상 */
+}
+
+.others a.fail:hover {
+    background-color: #E64A19; /* 호버 시 실패 색상 */
+}
+
+/* 반응형 */
+@media screen and (max-width: 600px) {
+    #section_wrap {
+        padding: 15px;
+    }
+
+    .others a {
+        margin: 5px 10px;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+}

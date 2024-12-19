@@ -1,0 +1,132 @@
+/* 전체 컨테이너 */
+.container {
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* 내 옷장 제목 스타일 */
+.closet-title {
+    cursor: pointer;
+    color: #333;
+    text-align: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.closet-title:hover {
+    color: #007bff;
+    transform: scale(1.05);
+}
+/* 카테고리 탭 */
+.category-tabs {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.category-tabs a {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category-tabs a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* 카테고리 섹션 */
+.closet-category-section {
+    margin-top: 40px;
+}
+
+.closet-category-section h3 {
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.closet-category-section h3:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+
+/* 아이템 카드 */
+.closet-item-card {
+    display: inline-block;
+    width: 220px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.closet-item-card:hover {
+    transform: translateY(-5px);
+}
+
+.closet-item-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.closet-item-info h3 {
+    margin: 5px 0;
+    font-size: 1.2em;
+}
+
+.details-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.details-link:hover {
+    text-decoration: underline;
+}
+
+/* 옷 추가 버튼 */
+.add-button-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.add-button {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe); /* 그라디언트 배경 */
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+    border-radius: 30px; /* 둥근 모서리 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-button:hover {
+    background: linear-gradient(135deg, #00f2fe, #4facfe); /* 호버 시 색 반전 */
+    transform: translateY(-5px); /* 위로 살짝 이동 */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
+}
+
+@media (max-width: 768px) {
+    .closet-item-card {
+        width: 100%; /* 화면이 좁을 경우 카드가 전체 너비를 차지 */
+    }
+}
