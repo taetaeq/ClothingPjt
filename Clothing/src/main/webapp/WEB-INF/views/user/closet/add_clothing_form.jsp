@@ -57,31 +57,38 @@
 					<select id="detail" name="detail" required>
 						<option value="">세부 카테고리 선택</option>
 					</select><br>
-
-					<!-- 이미지 업로드 -->
-					<input type="file" id="imageFile" name="imageFile" accept="image/*" required>
-					<br>
 					
 					<!-- 색상 선택 드롭다운 -->
 					<select id="color" name="color" required>
 					    <option value="">색상 선택</option>
 					</select>
 					
-					<!-- 패턴 선택 드롭다운 -->
-					<select id="pattern" name="pattern" required>
-					    <option value="">패턴 선택</option>
-					</select>
-
-
+					<!-- 이미지 업로드 -->
+					<input type="file" id="imageFile" name="imageFile" accept="image/*" required>
+					<br>
+					
 					<!-- 피트감 -->
 					<select id="fit" name="fit" required>
 						<option value="">핏 선택</option>
-
 					</select> <br>
-
 					
+					<!-- 패턴 선택 드롭다운 -->
+					<select id="pattern" name="pattern" required>
+					    <option value="">패턴 선택</option>
+					    <option value="스트라이프">스트라이프</option>
+					    <option value="체크">체크</option>
+					    <option value="도트">도트</option>
+					    <option value="플로럴">플로럴</option>
+					    <option value="기하학">기하학</option>
+					    <option value="애니멀 프린트">애니멀 프린트</option>
+					    <option value="무지">무지</option>
+					    <option value="헤링본">헤링본</option>
+					    <option value="그라데이션">그라데이션</option>
+					    <option value="기타">기타</option>
+					</select>
+
 						
-					</select> <br> <input type="submit" value="등록"
+			 <input type="submit" value="등록"
 						onclick="addClothingForm();">
 
 					<!-- 리셋 버튼 -->

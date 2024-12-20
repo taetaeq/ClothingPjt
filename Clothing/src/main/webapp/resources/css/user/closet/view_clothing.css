@@ -9,6 +9,8 @@
     cursor: pointer;
     color: #333;
     text-align: center;
+    font-size: 2em;
+    font-weight: bold;
     transition: color 0.3s ease, transform 0.2s ease;
 }
 
@@ -16,57 +18,57 @@
     color: #007bff;
     transform: scale(1.05);
 }
-/* 카테고리 탭 */
-.category-tabs {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.category-tabs a {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px 15px;
-    background-color: #f8f9fa;
-    color: #333;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.category-tabs a:hover {
-    background-color: #007bff;
-    color: #fff;
-}
 
 /* 카테고리 섹션 */
 .closet-category-section {
     margin-top: 40px;
+    padding: 20px 0;
+    border-top: 2px solid #ddd; /* 카테고리 구분선 */
+}
+
+.closet-category-section:first-of-type {
+    border-top: none; /* 첫 번째 카테고리는 구분선 제거 */
 }
 
 .closet-category-section h3 {
     cursor: pointer;
     color: #333;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: left;
     transition: color 0.3s ease;
+    border-bottom: 2px solid #007bff; /* 하단 강조선 */
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
 .closet-category-section h3:hover {
     color: #007bff;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
-
 /* 아이템 카드 */
+.closet-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* 아이템 간 여유 공간 */
+    gap: 20px; /* 카드 간 간격 */
+}
+
 .closet-item-card {
-    display: inline-block;
-    width: 220px;
-    margin: 10px;
+    width: 220px; /* 고정 크기 */
+    height: 320px; /* 고정 높이 */
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s ease;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .closet-item-card:hover {
@@ -75,7 +77,8 @@
 
 .closet-item-image {
     width: 100%;
-    height: auto;
+    height: 180px; /* 이미지 높이를 고정 */
+    object-fit: cover; /* 이미지 비율 유지하며 크기 맞춤 */
     border-radius: 8px;
     margin-bottom: 10px;
 }
@@ -83,6 +86,14 @@
 .closet-item-info h3 {
     margin: 5px 0;
     font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.closet-item-info p {
+    margin: 2px 0;
+    font-size: 0.9em;
+    color: #555;
 }
 
 .details-link {
@@ -125,8 +136,23 @@
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3); /* 그림자 강화 */
 }
 
+/* 반응형 스타일 */
 @media (max-width: 768px) {
+    .closet-items {
+        justify-content: center; /* 작은 화면에서는 가운데 정렬 */
+        gap: 15px; /* 카드 간격 좁힘 */
+    }
+
     .closet-item-card {
-        width: 100%; /* 화면이 좁을 경우 카드가 전체 너비를 차지 */
+        width: 180px; /* 카드 크기 줄임 */
+        height: 280px; /* 높이 조정 */
+    }
+
+    .closet-item-image {
+        height: 140px; /* 이미지 높이 축소 */
+    }
+
+    .closet-category-section h3 {
+        font-size: 1.2em; /* 카테고리 제목 크기 축소 */
     }
 }

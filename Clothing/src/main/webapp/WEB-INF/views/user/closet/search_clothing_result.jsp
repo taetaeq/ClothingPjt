@@ -37,7 +37,7 @@
                     </c:otherwise>
                 </c:choose>
 
-                    <img src="${pageContext.request.contextPath}${item.imageUrl}" alt="${item.itemName}" class="result-image">
+                    <img src="${item.imageUrl}" alt="${item.itemName}" class="closet-item-image">
                     <div class="result-info">
                         <h3>${item.itemName}</h3>
                         <p>카테고리: ${item.category}</p>

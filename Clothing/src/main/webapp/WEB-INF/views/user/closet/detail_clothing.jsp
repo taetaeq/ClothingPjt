@@ -22,7 +22,7 @@
             <!-- 아이템 정보 출력 -->
             <c:if test="${not empty clothing}">
                 <div class="clothing-image">
-                    <img src="${pageContext.request.contextPath}${clothing.imageUrl}" alt="${clothing.itemName}" />
+                    <img src="${clothing.imageUrl}" alt="${clothing.itemName}" />
                 </div>
                 <div class="clothing-info">
                     <h3>${clothing.itemName}</h3>

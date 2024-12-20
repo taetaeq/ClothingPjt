@@ -7,7 +7,11 @@
 		
 		let form = document.modify_account_form;
 		
-		if (form.name.value == '') {
+		if (form.password.value == '') {
+	        alert('비밀번호를 입력하세요.');
+	        form.password.focus();
+	        
+		} else if (form.name.value == '') {
 			alert('사용자 이름을 입력하세요.');
 			form.name.focus();
 			

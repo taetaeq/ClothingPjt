@@ -65,11 +65,11 @@
 					<br>
 
 					<!-- 계정 생성 버튼 -->
-					<input type="button" value="Create Account"
+					<input type="button" value="등록"
 						onclick="createAccountForm();">
 
 					<!-- 리셋 버튼 -->
-					<input type="reset" value="Reset">
+					<input type="reset" value="초기화">
 
 				</form>
 			</div>

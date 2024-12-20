@@ -77,7 +77,7 @@ async function handleImageChange(event) {
         console.log("Uploaded Image URL:", imageUrl);
 
         // Vision API 호출
-        const analyzeResponse = await fetch("/user/closet/analyzeImage", {
+        const analyzeResponse = await fetch("/match/user/closet/analyzeImage", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ imageUrl }),
@@ -87,12 +87,25 @@ async function handleImageChange(event) {
             throw new Error("이미지 분석 실패");
         }
 
-        const { color, pattern } = await analyzeResponse.json();
-        console.log("Vision API Results:", { color, pattern });
+        const responseData = await analyzeResponse.json();
+        const { color } = responseData; // 구조 분해 할당을 사용하여 color 속성 추출
+        console.log("Vision API Results:", color);  // '실버'가 출력됩니다.
+        
+     // 분석 결과를 드롭다운에 반영
+        const colorSelect = document.getElementById("color");
 
-        // 분석 결과를 드롭다운에 반영
-        document.getElementById("color").innerHTML = `<option value="${color}" selected>${color}</option>`;
-        document.getElementById("pattern").innerHTML = `<option value="${pattern}" selected>${pattern}</option>`;
+        // 기존 내용 초기화 (기존 옵션들 지우기)
+        colorSelect.innerHTML = "";
+
+        // 새로운 옵션 추가
+        const optionElement = document.createElement("option");
+        optionElement.value = color; // 색상 값
+        optionElement.textContent = color; // 표시될 텍스트
+        optionElement.selected = true; // 기본값으로 선택
+
+        colorSelect.appendChild(optionElement);
+
+      
     } catch (error) {
         console.error("Error during image processing:", error);
         alert("이미지 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -120,26 +133,50 @@ document.addEventListener("DOMContentLoaded", function () {
         const category = this.value;
 
         subcategorySelect.innerHTML = ""; // 서브 카테고리 초기화
-        fitSelect.innerHTML = ""; // 핏 옵션 초기화
+        fitSelect.innerHTML = "";
 
         let subcategoryOptions = [];
         let fitOptions = [];
 
-        // 카테고리별 옵션 설정
+     // 카테고리별 옵션 설정
         switch (category) {
             case "상의":
                 subcategoryOptions = [
                     "맨투맨/스웨트", "셔츠/블라우스", "후드 티셔츠", "니트/스웨터", "카라티셔츠",
                     "긴소매 티셔츠", "반소매 티셔츠", "민소매 티셔츠", "기타 상의",
                 ];
-                fitOptions = ["슬림 핏", "레귤러 핏", "오버 핏"];
+                fitOptions = [
+                    "슬림 핏(몸에 딱 맞는 핏)",
+                    "레귤러 핏(기본적인 표준 핏)",
+                    "오버 핏(크게 입은 듯한 넉넉한 핏)",
+                    "크롭 핏(허리가 드러나는 짧은 스타일)",
+                    "박스 핏(넉넉하고 사각형 느낌의 핏)",
+                    "드롭 숄더 핏(어깨선이 내려간 여유로운 핏)",
+                    "라운드 핏(몸을 따라 자연스럽게 흐르는 핏)",
+                    "기타(기타 설명)"
+                ];
                 break;
             case "하의":
                 subcategoryOptions = [
                     "데님팬츠", "코튼팬츠", "슈트팬츠/슬랙스", "트레이닝/조거 팬츠", "숏 팬츠",
                     "레깅스", "점프 슈트/오버올", "기타 하의",
                 ];
-                fitOptions = ["레귤러핏", "슬림 핏", "와이드핏", "스트레이트핏", "스키니핏", "크롭핏", "베기핏", "루즈핏", "오버 핏"];
+                fitOptions = [
+                    "레귤러핏(기본적인 표준 핏)",
+                    "슬림 핏(몸에 딱 맞는 핏)",
+                    "와이드핏(넓고 여유로운 핏)",
+                    "스트레이트핏(일자로 떨어지는 핏)",
+                    "스키니핏(몸에 꼭 맞는 핏)",
+                    "크롭핏(발목 위로 짧은 핏)",
+                    "베기핏(엉덩이와 허벅지가 여유로운 핏)",
+                    "루즈핏(넉넉하고 편안한 핏)",
+                    "오버 핏(더 큰 사이즈로 입은 핏)",
+                    "부츠컷 핏(무릎 아래로 퍼지는 핏)",
+                    "테이퍼드 핏(허벅지는 여유롭고 아래로 좁아지는 핏)",
+                    "조거 핏(발목에 밴드가 있는 핏)",
+                    "슬릿 핏(옆부분에 트임이 있는 핏)",
+                    "기타(기타 설명)"
+                ];
                 break;
             case "아우터":
                 subcategoryOptions = [
@@ -147,21 +184,41 @@ document.addEventListener("DOMContentLoaded", function () {
                     "슈트/블레이저재킷", "가디건", "아노락 재킷", "후리스", "트레이닝 재킷",
                     "스타디움 재킷", "환절기 코드", "겨울 코트", "롱패딩", "숏패딩", "패딩 베스트", "베스트", "기타 아우터",
                 ];
-                fitOptions = ["없음"];
+                fitOptions = [
+                    "라글란 핏(어깨선이 자연스럽게 내려오는 핏)",
+                    "트렌치 핏(허리를 묶어 슬림한 실루엣을 강조)",
+                    "코쿤 핏(몸을 감싸는 둥근 형태의 핏)",
+                    "에이라인 핏(위는 좁고 아래로 넓어지는 핏)",
+                    "기타(기타 설명)"
+                ];
                 break;
             case "드레스":
                 subcategoryOptions = [
                     "미니 원피스", "미디 원피스", "맥시 원피스", "미니 스커트", "미디 스커트",
                     "롱 스커트", "기타 원피스",
                 ];
-                fitOptions = ["슬림 핏", "플레어 핏"];
+                fitOptions = [
+                    "슬림 핏(몸에 딱 맞는 핏)",
+                    "플레어 핏(아래로 퍼지는 여성스러운 핏)",
+                    "엠파이어 핏(가슴 아래부터 시작되는 핏)",
+                    "머메이드 핏(무릎 아래로 퍼지는 인어 형태 핏)",
+                    "오프숄더 핏(어깨를 드러내는 핏)",
+                    "셔츠 핏(셔츠를 변형한 심플한 핏)",
+                    "기타(기타 설명)"
+                ];
                 break;
             case "신발":
                 subcategoryOptions = [
                     "스니커즈", "구두", "샌들/슬리퍼", "부츠/워커", "스포츠화",
                     "패딩/퍼신발", "기타 신발",
                 ];
-                fitOptions = ["사이즈 선택 없음"];
+                fitOptions = [
+                    "로우컷(발목 아래의 낮은 스타일)",
+                    "미드컷(발목까지 오는 스타일)",
+                    "하이컷(발목 위까지 올라오는 스타일)",
+                    "슬림핏(발을 감싸는 슬림한 핏)",
+                    "기타(기타 설명)"
+                ];
                 break;
             default:
                 subcategoryOptions = [];
@@ -176,13 +233,23 @@ document.addEventListener("DOMContentLoaded", function () {
             subcategorySelect.appendChild(optionElement);
         });
 
-        // 핏 옵션 추가
-        fitOptions.forEach((option) => {
-            const optionElement = document.createElement("option");
-            optionElement.value = option;
-            optionElement.textContent = option;
-            fitSelect.appendChild(optionElement);
-        });
+     	// 핏 옵션 추가
+     	console.log(fitOptions);  // fitOptions 객체의 값 확인
+	     	
+    	 // 핏 옵션 추가
+     	fitOptions.forEach((fitOption) => {
+     	    const optionElement = document.createElement("option");
+     	    
+     	    // "핏(설명)"에서 "핏" 부분만 DB에 저장하도록 value 설정
+     	    const fitValue = fitOption.split("(")[0]; // "(" 이전의 텍스트 추출
+     	    optionElement.value = fitValue.trim(); // 공백 제거 후 저장
+
+     	    // 드롭다운에 전체 텍스트를 표시 (핏 + 설명)
+     	    optionElement.textContent = fitOption;
+
+     	    fitSelect.appendChild(optionElement);
+     	});
+
     });
 });
 </script>

@@ -1,0 +1,70 @@
+/* 전체 섹션 스타일 */
+#section_wrap {
+    width: 80%;
+    margin: 50px auto;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 스타일 */
+.word h3 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* 기타 버튼 영역 스타일 */
+.others {
+    margin-top: 20px;
+}
+
+.others a {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    background-color: #4caf50; /* 녹색 */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.others a:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* 실패 메시지 스타일 */
+.word h3.failure {
+    color: #f44336; /* 빨간색 */
+}
+
+/* 성공 메시지 스타일 */
+.word h3.success {
+    color: #4caf50; /* 녹색 */
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    #section_wrap {
+        width: 95%;
+        margin: 30px auto;
+        padding: 15px;
+    }
+
+    .word h3 {
+        font-size: 1.5em;
+    }
+
+    .others a {
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+}

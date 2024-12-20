@@ -24,7 +24,8 @@
                         <c:forEach var="item" items="${closetItems}">
                             <c:if test="${item.category == category}">
                                 <div class="closet-item-card">
-                                    <img src="${pageContext.request.contextPath}${item.imageUrl}" alt="${item.itemName}" class="closet-item-image">
+                                
+                                    <img src="${item.imageUrl}" alt="${item.itemName}" class="closet-item-image">
                                     <div class="closet-item-info">
                                         <h3>${item.itemName}</h3>
                                         <p>색상: ${item.color}</p>

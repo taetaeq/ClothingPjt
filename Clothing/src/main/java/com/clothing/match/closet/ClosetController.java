@@ -33,7 +33,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
@@ -104,11 +103,9 @@ public class ClosetController {
                 closetVo.setImageUrl(imageUrl);
 
                 // Vision API 분석 호출
-                String color = analyzeImage(imageUrl, "LABEL_DETECTION");
-                String pattern = analyzeImage(imageUrl, "IMAGE_PROPERTIES");
+                String color = analyzeImage(imageUrl, "IMAGE_PROPERTIES");
 
                 closetVo.setColor(color);
-                closetVo.setPattern(pattern);
             } else {
                 model.addAttribute("message", "이미지 파일이 업로드되지 않았습니다.");
                 return "/user/closet/add_clothing_ng";
@@ -225,9 +222,7 @@ public class ClosetController {
         try {
             // Vision API 호출
             String color = analyzeImage(imageUrl, "IMAGE_PROPERTIES");
-            String pattern = analyzeImage(imageUrl, "LABEL_DETECTION");
-
-            return ResponseEntity.ok(Map.of("color", color, "pattern", pattern));
+            return ResponseEntity.ok(Map.of("color", color));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body(Map.of("error", "이미지 분석 중 오류가 발생했습니다."));
@@ -265,9 +260,8 @@ public class ClosetController {
             System.out.println("Vision API Response: " + jsonResponse);
 
             if ("IMAGE_PROPERTIES".equals(featureType)) {
-                return parseColor(jsonResponse);
-            } else if ("LABEL_DETECTION".equals(featureType)) {
-                return parsePattern(jsonResponse);
+            	System.out.println(jsonResponse);
+                return parseColor(jsonResponse);   
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -277,22 +271,49 @@ public class ClosetController {
     private static final Map<String, int[]> EXTENDED_COLOR_MAP = new HashMap<>();
 		 // 확장된 색상 데이터베이스 초기화
 		 static {
-		     EXTENDED_COLOR_MAP.put("라이트 레드", new int[]{255, 204, 203});
-		     EXTENDED_COLOR_MAP.put("다크 레드", new int[]{139, 0, 0});
-		     EXTENDED_COLOR_MAP.put("핑크", new int[]{255, 182, 193});
-		     EXTENDED_COLOR_MAP.put("살구색", new int[]{255, 229, 180});
-		     EXTENDED_COLOR_MAP.put("스카이 블루", new int[]{135, 206, 235});
-		     EXTENDED_COLOR_MAP.put("네이비 블루", new int[]{0, 0, 128});
-		     EXTENDED_COLOR_MAP.put("민트", new int[]{152, 255, 152});
-		     EXTENDED_COLOR_MAP.put("라임 그린", new int[]{50, 205, 50});
-		     EXTENDED_COLOR_MAP.put("머스타드", new int[]{255, 219, 88});
-		     EXTENDED_COLOR_MAP.put("베이지", new int[]{245, 245, 220});
-		     EXTENDED_COLOR_MAP.put("코랄", new int[]{255, 127, 80});
-		     EXTENDED_COLOR_MAP.put("퍼플", new int[]{128, 0, 128});
-		     EXTENDED_COLOR_MAP.put("회색", new int[]{128, 128, 128});
-		     EXTENDED_COLOR_MAP.put("흰색", new int[]{255, 255, 255});
-		     EXTENDED_COLOR_MAP.put("검정색", new int[]{0, 0, 0});
-		     // 필요에 따라 색상 추가 가능
+			 	EXTENDED_COLOR_MAP.put("화이트", new int[]{255, 255, 255});
+			    EXTENDED_COLOR_MAP.put("실버", new int[]{192, 192, 192});
+			    EXTENDED_COLOR_MAP.put("라이트 그레이", new int[]{211, 211, 211});
+			    EXTENDED_COLOR_MAP.put("그레이", new int[]{128, 128, 128});
+			    EXTENDED_COLOR_MAP.put("다크 그레이", new int[]{64, 64, 64});
+			    EXTENDED_COLOR_MAP.put("블랙", new int[]{0, 0, 0});
+			    EXTENDED_COLOR_MAP.put("레드", new int[]{255, 0, 0});
+			    EXTENDED_COLOR_MAP.put("딥레드", new int[]{139, 0, 0});
+			    EXTENDED_COLOR_MAP.put("버건디", new int[]{128, 0, 32});
+			    EXTENDED_COLOR_MAP.put("브릭", new int[]{156, 102, 102});
+			    EXTENDED_COLOR_MAP.put("페일 핑크", new int[]{250, 218, 221});
+			    EXTENDED_COLOR_MAP.put("핑크", new int[]{255, 192, 203});
+			    EXTENDED_COLOR_MAP.put("라이트 핑크", new int[]{255, 182, 193});
+			    EXTENDED_COLOR_MAP.put("로즈골드", new int[]{183, 110, 121});
+			    EXTENDED_COLOR_MAP.put("오렌지", new int[]{255, 165, 0});
+			    EXTENDED_COLOR_MAP.put("아이보리", new int[]{255, 255, 240});
+			    EXTENDED_COLOR_MAP.put("오트밀", new int[]{205, 186, 136});
+			    EXTENDED_COLOR_MAP.put("라이트 옐로우", new int[]{255, 255, 224});
+			    EXTENDED_COLOR_MAP.put("옐로우", new int[]{255, 255, 0});
+			    EXTENDED_COLOR_MAP.put("머스타드", new int[]{255, 219, 88});
+			    EXTENDED_COLOR_MAP.put("골드", new int[]{255, 215, 0});
+			    EXTENDED_COLOR_MAP.put("라이트 그린", new int[]{144, 238, 144});
+			    EXTENDED_COLOR_MAP.put("그린", new int[]{0, 128, 0});
+			    EXTENDED_COLOR_MAP.put("올리브 그린", new int[]{107, 142, 35});
+			    EXTENDED_COLOR_MAP.put("카키", new int[]{195, 176, 145});
+			    EXTENDED_COLOR_MAP.put("다크 그린", new int[]{0, 100, 0});
+			    EXTENDED_COLOR_MAP.put("민트", new int[]{152, 255, 152});
+			    EXTENDED_COLOR_MAP.put("스카이 블루", new int[]{135, 206, 235});
+			    EXTENDED_COLOR_MAP.put("블루", new int[]{0, 0, 255});
+			    EXTENDED_COLOR_MAP.put("다크 블루", new int[]{0, 0, 139});
+			    EXTENDED_COLOR_MAP.put("네이비", new int[]{0, 0, 128});
+			    EXTENDED_COLOR_MAP.put("다크 네이비", new int[]{0, 0, 102});
+			    EXTENDED_COLOR_MAP.put("라벤더", new int[]{230, 230, 250});
+			    EXTENDED_COLOR_MAP.put("퍼플", new int[]{128, 0, 128});
+			    EXTENDED_COLOR_MAP.put("브라운", new int[]{165, 42, 42});
+			    EXTENDED_COLOR_MAP.put("다크 브라운", new int[]{92, 64, 51});
+			    EXTENDED_COLOR_MAP.put("카멜", new int[]{193, 154, 107});
+			    EXTENDED_COLOR_MAP.put("베이지", new int[]{245, 245, 220});
+			    EXTENDED_COLOR_MAP.put("카키 베이지", new int[]{195, 176, 145});
+			    EXTENDED_COLOR_MAP.put("연청", new int[]{173, 216, 230});
+			    EXTENDED_COLOR_MAP.put("중청", new int[]{70, 130, 180});
+			    EXTENDED_COLOR_MAP.put("진청", new int[]{0, 0, 128});
+			    EXTENDED_COLOR_MAP.put("흑청", new int[]{47, 79, 79});
 		 }
 
  
@@ -333,6 +354,8 @@ public class ClosetController {
                 int green = colorNode.get("green").asInt();
                 int blue = colorNode.get("blue").asInt();
                 return getClosestColorName(red, green, blue); // 가장 가까운 색상 이름 반환
+            }else {
+                System.out.println("색상 정보를 찾을 수 없습니다.");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -340,41 +363,7 @@ public class ClosetController {
         return "색상 없음";
     }
 
-    private String parsePattern(String jsonResponse) {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(jsonResponse);
-            JsonNode labelsNode = rootNode.path("responses").get(0).path("labelAnnotations");
-            if (!labelsNode.isMissingNode() && labelsNode.isArray()) {
-                for (JsonNode label : labelsNode) {
-                	String description = label.get("description").asText().toLowerCase();
-                    if (description.contains("stripe")) {
-                        return "스트라이프";
-                    } else if (description.contains("check") || description.contains("plaid")) {
-                        return "체크";
-                    } else if (description.contains("polka dot") || description.contains("dot")) {
-                        return "도트";
-                    } else if (description.contains("floral") || description.contains("flower")) {
-                        return "플로럴";
-                    } else if (description.contains("geometric") || description.contains("abstract")) {
-                        return "기하학";
-                    } else if (description.contains("animal")) {
-                        return "애니멀 프린트";
-                    } else if (description.contains("paisley")) {
-                        return "페이즐리";
-                    } else if (description.contains("camouflage")) {
-                        return "카모플라주";
-                    } else if (description.contains("solid")) {
-                        return "단색";
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "패턴 없음";
-    }
- // 사용자가 등록한 옷장 아이템 조회
+    // 사용자가 등록한 옷장 아이템 조회
     @GetMapping("/viewClothing")
     public String viewClothing(HttpSession session, Model model) {
         System.out.println("[ClosetController] viewClothing()");
@@ -432,26 +421,6 @@ public class ClosetController {
         }
 
         return nextPage;
-    }
-    
-    @GetMapping("/test-storage")
-    public ResponseEntity<String> testStorage() {
-        try {
-        	Storage storage = StorageOptions.newBuilder()
-                    .setCredentials(GoogleCredentials.fromStream(new FileInputStream("C:/apiKey/clothing-444605-0391bde9040d.json")))
-                    .build()
-                    .getService();
-
-            Bucket bucket = storage.get("my-clothing-bucket");
-            if (bucket != null) {
-                return ResponseEntity.ok("버킷 이름: " + bucket.getName());
-            } else {
-                return ResponseEntity.status(404).body("버킷을 찾을 수 없습니다.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(500).body("오류 발생: " + e.getMessage());
-        }
     }
 
 }

@@ -1,6 +1,9 @@
 package com.clothing.match.user.member;
 
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +15,10 @@ public class UserMemberService {
 
 	@Autowired
 	UserMemberDao userMemberDao;
-
+	
+	@Autowired
+    PasswordEncoder passwordEncoder;
+	
 	public int createAccountConfirm(UserMemberVo userMemberVo) {
 		System.out.println("[UserMemberService] createAccountConfirm()");
 
@@ -48,7 +54,13 @@ public class UserMemberService {
 
 	public int modifyAccountConfirm(UserMemberVo userMemberVo) {
 		System.out.println("[UserMemberService] modifyAccountConfirm()");
-
+		
+		// 비밀번호 암호화 처리
+	    if (userMemberVo.getPassword() != null && !userMemberVo.getPassword().isEmpty()) {
+	        //1String encryptedPassword = passwordEncoder.encode(userMemberVo.getPassword());
+	        //userMemberVo.setPassword(encryptedPassword);
+	    }
+	    
 		return userMemberDao.updateUserAccount(userMemberVo);
 
 	}
@@ -86,4 +98,64 @@ public class UserMemberService {
         // 사용자 상세 정보를 UserDetailDao에서 조회
         return userMemberDao.selectUserDetail(userId);
     }
+    
+    
+    // 임시 비밀번호 생성 메서드
+    public String generateTemporaryPassword() {
+        int length = 10; // 비밀번호 길이
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
+        StringBuilder tempPassword = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++) {
+            tempPassword.append(characters.charAt(random.nextInt(characters.length())));
+        }
+
+        return tempPassword.toString();
+    }
+
+    /**
+     * 비밀번호 변경
+     */
+    public void updatePassword(String username, String newPassword) {
+        System.out.println("[UserMemberService] updatePassword()");
+
+        // 비밀번호 암호화
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        userMemberDao.updateUserPasswordByUsername(username, encryptedPassword);
+    }
+    
+    
+    public UserMemberVo getUserByIdAndEmail(String username, String email) {
+        return userMemberDao.findUserByUsernameAndEmail(username, email);
+    }
+    
+    // 이메일 전송 로직
+    public void sendTemporaryPasswordEmail(String email, String tempPassword) {
+        // Spring Email 혹은 Java Mail로 구현
+        System.out.println("[UserMemberService] sendTemporaryPasswordEmail()");
+        System.out.println("To: " + email);
+        System.out.println("Temporary Password: " + tempPassword);
+    }
+    
+    public void processFindPassword(String username, String email) throws Exception {
+        System.out.println("[UserMemberService] processFindPassword()");
+
+        // 사용자 확인
+        UserMemberVo user = getUserByIdAndEmail(username, email);
+        if (user == null) {
+            throw new Exception("아이디와 이메일이 일치하지 않습니다.");
+        }
+
+        // 임시 비밀번호 생성
+        String tempPassword = generateTemporaryPassword();
+        System.out.println("Generated Temporary Password: " + tempPassword);
+
+        // 비밀번호 업데이트
+        updatePassword(username, tempPassword);
+
+        // 이메일 전송 로직 (구현 필요)
+        sendTemporaryPasswordEmail(email, tempPassword);
+    }
 }
+

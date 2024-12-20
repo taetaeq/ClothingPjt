@@ -29,6 +29,13 @@ public class ClosetDao {
     public int insertClothingItem(ClosetVo closetVo, int userId) {
         System.out.println("[ClosetDao] insertClothingItem()");
         System.out.println("[insertClothingItem] imageUrl: " + closetVo.getImageUrl());
+        
+        // 핏에서 "(" 앞부분만 추출하여 저장
+        String fit = closetVo.getFit();
+        if (fit != null && fit.contains("(")) {
+            fit = fit.substring(0, fit.indexOf("("));
+        }
+        
         // SQL 쿼리문
         String sql = "INSERT INTO closet(item_name, category, detail, color, image_url, fit, pattern, user_id) "
                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
@@ -46,7 +53,7 @@ public class ClosetDao {
                     closetVo.getDetail()!= null ? closetVo.getDetail() : "",
                     closetVo.getColor(),      // 색상
                     closetVo.getImageUrl(),   // 이미지 URL
-                    closetVo.getFit(),        // 핏
+                    fit,        // 핏 (설명 제외 값)
                     closetVo.getPattern(),    // 패턴/무늬
                     userId);                  // 사용자의 user_id
             

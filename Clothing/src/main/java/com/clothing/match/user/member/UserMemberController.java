@@ -3,11 +3,13 @@ package com.clothing.match.user.member;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/user/member")
@@ -15,7 +17,10 @@ public class UserMemberController {
 
 	@Autowired
 	UserMemberService userMemberService;
-
+	
+	@Autowired
+    PasswordEncoder passwordEncoder;
+	
 	@GetMapping("/createAccountForm")
 	public String createAccountForm() {
 		System.out.println("[UserMemberController] createAccountForm()");
@@ -116,7 +121,13 @@ public class UserMemberController {
 		System.out.println("[UserMemberController] modifyAccountConfirm()");
 
 		String nextPage = "user/member/modify_account_ok";
-
+		
+		// 입력된 새 비밀번호를 암호화
+	    if (userMemberVo.getPassword() != null && !userMemberVo.getPassword().isEmpty()) {
+	        //String encryptedPassword = passwordEncoder.encode(userMemberVo.getPassword());
+	        //userMemberVo.setPassword(encryptedPassword);
+	    }
+	    
 		int result = userMemberService.modifyAccountConfirm(userMemberVo);
 
 		if (result > 0) {
@@ -225,5 +236,46 @@ public class UserMemberController {
 
         return nextPage;
     }
+    
+ // 비밀번호 찾기 폼 페이지로 이동
+    @GetMapping("/findPasswordForm")
+    public String findPasswordForm() {
+        System.out.println("[UserMemberController] findPasswordForm()");
+        return "user/member/find_password_form";
+    }
+    
+    @PostMapping("/findPasswordConfirm")
+    public String findPasswordConfirm(
+        @RequestParam("u_m_id") String username,
+        @RequestParam("u_m_mail") String email,
+        Model model) {
+        System.out.println("[UserMemberController] findPasswordConfirm()");
+
+        try {
+            UserMemberVo user = userMemberService.getUserByIdAndEmail(username, email);
+            if (user == null) {
+                model.addAttribute("message", "아이디와 이메일이 일치하지 않습니다.");
+                return "user/member/find_password_ng";
+            }
+
+            // 임시 비밀번호 생성
+            String tempPassword = userMemberService.generateTemporaryPassword();
+            userMemberService.updatePassword(username, tempPassword);
+
+            // 이메일 전송 로직 (구현 필요)
+            System.out.println("임시 비밀번호: " + tempPassword);
+
+            model.addAttribute("message", "임시 비밀번호가 이메일로 전송되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("message", "비밀번호 찾기 중 오류가 발생했습니다.");
+            return "user/member/find_password_ng";
+        }
+
+        return "user/member/find_password_ok";
+    }
+
+
+
 
 }

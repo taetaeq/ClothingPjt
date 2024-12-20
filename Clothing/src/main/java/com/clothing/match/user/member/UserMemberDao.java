@@ -82,6 +82,7 @@ public class UserMemberDao {
 	      System.out.println("[UserMemberDao] updateUserAccount()");
 	      
 	      String sql = "UPDATE user SET "
+	    		  + "password = ?, "   // 비밀번호도 업데이트
 	              + "name = ?, "
 	              + "gender = ?, "
 	              + "email = ?, "
@@ -91,7 +92,8 @@ public class UserMemberDao {
 	   int result = -1;
 
 	   try {
-	       result = jdbcTemplate.update(sql, 
+	       result = jdbcTemplate.update(sql,
+    		   				passwordEncoder.encode(userMemberVo.getPassword()),  // 암호화된 비밀번호
 	                           userMemberVo.getName(), 
 	                           userMemberVo.getGender(), 
 	                           userMemberVo.getEmail(), 
@@ -181,6 +183,41 @@ public class UserMemberDao {
 
 	    return userMemberVo;  // null일 경우에도 null을 반환
 	}
+	
+	// 아이디와 이메일로 사용자 확인
+    public UserMemberVo findUserByUsernameAndEmail(String username, String email) {
+        System.out.println("[UserMemberDao] findUserByUsernameAndEmail()");
+
+        String sql = "SELECT * FROM user WHERE username = ? AND email = ?";
+        UserMemberVo user = null;
+
+        try {
+            RowMapper<UserMemberVo> rowMapper = BeanPropertyRowMapper.newInstance(UserMemberVo.class);
+            user = jdbcTemplate.queryForObject(sql, rowMapper, username, email);
+        } catch (Exception e) {
+            System.out.println("사용자를 찾을 수 없습니다: " + e.getMessage());
+        }
+
+        return user;
+    }
+
+    // 비밀번호 업데이트 (username 기반)
+    public int updateUserPasswordByUsername(String username, String encryptedPassword) {
+        System.out.println("[UserMemberDao] updateUserPasswordByUsername()");
+
+        String sql = "UPDATE user SET password = ? WHERE username = ?";
+        int result = -1;
+
+        try {
+            result = jdbcTemplate.update(sql, encryptedPassword, username);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+
 
 
 }

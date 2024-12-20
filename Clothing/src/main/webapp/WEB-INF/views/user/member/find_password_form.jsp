@@ -38,6 +38,7 @@
 				    <input type="button" value="비밀번호 찾기" onclick="findPasswordForm();"> 
 				    <input type="reset" value="초기화">
 				</form>
+
 			</div>
 			
 			<div class="create_account_login">
